@@ -1,0 +1,8 @@
+exportPattern("^[[:alpha:]]+")
+
+import(circular, maptools, raster, rgeos, sp)
+
+importFrom("grDevices", "dev.off", "gray.colors", "pdf", "tiff")
+  importFrom("graphics", "box", "par", "title")
+  importFrom("stats", "na.omit")
+  importFrom("utils", "write.csv")
