@@ -7,9 +7,7 @@ function(data, filename="examined.txt") {
     stop("data must have 8 columns, see help(\"examinedSpecimens\")")
   }
   colnames(data) <- c("spp", "col", "cn", "h", "hn", "cntr", "state", "city")
-  cat("Assuming the columns are ordered as:")
-  cat("\n species, collector name, collector number, herbarium acronym, herbarium number, country, state, municipality", fill=T)
-  cat("\n", fill=T)
+  message("Assuming the columns are ordered as: species, collector name, collector number, herbarium acronym, herbarium number, country, state, municipality")
   paste(data$col, data$cn) -> data$specimens
   which(is.na(data$col)) -> miss.col
   which(is.na(data$cn)) -> miss.cn

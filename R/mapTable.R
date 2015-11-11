@@ -6,9 +6,7 @@ if (class(data) != "data.frame") {
 if (ncol(data) != 3) {
   stop("data must have 3 columns, see help(\"mapTable\")")
 }
-cat("Assuming the columns are ordered as:")
-cat("\n species, longitude and latitude", fill=T)
-cat("\n", fill=T)
+message("Assuming the columns are ordered as: species, longitude and latitude")
 data -> geo.data
 colnames(geo.data) <- c("Species", "x", "y")
 coordinates(geo.data) = ~x+y

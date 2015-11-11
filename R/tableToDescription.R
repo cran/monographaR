@@ -3,9 +3,8 @@ function(data, filename="species_descriptions.txt") {
   if (class(data) != "data.frame") {
     stop("data must be a data.frame")
   }
-  cat("Assuming the columns are ordered as:")
-  cat("\n Character_in_description, complement, separator, and the species in the remaining columns", fill=T)
-  cat("\n", fill=T)
+  message("Assuming the columns are ordered as: Character_in_description, complement, separator, and the species in the remaining columns")
+  cat(" ", fill=T)
   data[,1:3] -> model
   data[,4:ncol(data)] -> spp.data
   colnames(spp.data) -> spp

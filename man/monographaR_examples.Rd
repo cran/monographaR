@@ -5,7 +5,7 @@
 Input data examples
 }
 \description{
-Input table examples. Five data.frames are listed in this example data set. 
+Input table examples. Six data.frames are listed in this example data set. 
 See help files of the functions for details.
 }
 \examples{
@@ -19,6 +19,7 @@ head(monographaR_examples$examinedSpecimens)
 head(monographaR_examples$phenoHist)
 head(monographaR_examples$tableToDescription)
 head(monographaR_examples$map_data)
+head(monographaR_examples$taxonomic_headings)
 
 
 }

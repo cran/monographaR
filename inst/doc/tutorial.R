@@ -2,26 +2,30 @@
 #  install.packages("monographaR", dependencies=T)
 
 ## ---- eval=FALSE---------------------------------------------------------
-#  setwd("C:/My_wording_directory")
+#  setwd("C:/My_working_directory")
 
-## ---- message=FALSE------------------------------------------------------
+## ---- message=FALSE, warning=FALSE---------------------------------------
 library(monographaR)
 
 ## ---- eval=FALSE---------------------------------------------------------
 #  data("monographaR_examples")
-#  head(monographaR_examples$colletorList)
+#  head(monographaR_examples$collectorList)
 #  head(monographaR_examples$examinedSpecimens)
 #  head(monographaR_examples$phenoHist)
 #  head(monographaR_examples$tableToDescription)
 #  head(monographaR_examples$map_data)
+#  head(monographaR_examples$taxonomic_headings)
 
-## ---- eval=FALSE, tidy=TRUE----------------------------------------------
+## ---- eval=FALSE, tidy=FALSE---------------------------------------------
 #  data("monographaR_examples")
-#  write.csv(monographaR_examples$colletorList, file="collector_list_model.csv", row.names=F)
-#  write.csv(monographaR_examples$examinedSpecimens, file="examined_specimens_model.csv", row.names=F)
+#  write.csv(monographaR_examples$collectorList, file="collector_list_model.csv", row.names=F)
+#  write.csv(monographaR_examples$examinedSpecimens, file="examined_specimens_model.csv",
+#    row.names=F)
 #  write.csv(monographaR_examples$phenoHist, file="phenology_model.csv", row.names=F)
-#  write.csv(monographaR_examples$tableToDescription, file="table_to_description_model.csv", row.names=F)
+#  write.csv(monographaR_examples$tableToDescription, file="table_to_description_model.csv",
+#    row.names=F)
 #  write.csv(monographaR_examples$map_data, file="map_functions_model.csv", row.names=F)
+#  write.csv(monographaR_examples$taxonomic_headings, file="headings_model.csv", row.names=F)
 
 ## ---- tidy=TRUE, results='asis'------------------------------------------
 
@@ -34,12 +38,12 @@ data(monographaR_examples)
 monographaR_examples$collectorList -> data
 knitr::kable(head(data, 5), align="l")
 
-## ---- tidy=TRUE, results='hide'------------------------------------------
+## ---- tidy=TRUE, message=FALSE, eval=FALSE-------------------------------
+#  
+#  collectorList(data, filename = "", paragraphs = FALSE)
+#  
 
-collectorList(data, filename = "", paragraphs = FALSE)
-
-
-## ---- echo=FALSE, results='asis'-----------------------------------------
+## ---- echo=FALSE, message=FALSE, results='asis'--------------------------
 
 collectorList(data, filename = "", paragraphs = FALSE)
 
@@ -56,12 +60,12 @@ monographaR_examples$examinedSpecimens -> data
 colnames(data)[2:3] <- c("Collector", "Number")
 knitr::kable(head(data, 5), align="l")
 
-## ---- tidy=TRUE, results='hide'------------------------------------------
+## ---- tidy=TRUE, message=FALSE, eval=FALSE-------------------------------
+#  
+#  examinedSpecimens(data, filename = "")
+#  
 
-examinedSpecimens(data, filename = "")
-
-
-## ---- echo=FALSE, results='asis'-----------------------------------------
+## ---- echo=FALSE, message=FALSE, results='asis'--------------------------
 
 examinedSpecimens(data, filename = "")
 
@@ -83,11 +87,33 @@ knitr::kable(head(data[,1:5], 5), align="l")
 #  tableToDescription(data, filename = "")
 #  
 
-## ---- echo=FALSE, results='asis'-----------------------------------------
+## ---- echo=FALSE, message=FALSE, results='asis'--------------------------
 
 data[,-c(1,8)] -> data
 tableToDescription(data, filename = "")
 
+
+## ---- tidy=TRUE, results='asis'------------------------------------------
+
+data(monographaR_examples)
+monographaR_examples$taxonomic_headings -> taxonomic.headings
+monographaR_examples$collectorList -> col.d
+monographaR_examples$examinedSpecimens -> exam.d
+monographaR_examples$tableToDescription -> desc.d
+desc.d[,-1] -> desc.d
+
+
+## ---- echo=FALSE, results='asis'-----------------------------------------
+data(monographaR_examples)
+monographaR_examples$taxonomic_headings -> headings
+knitr::kable(headings, align="l")
+
+## ---- tidy=FALSE, eval=FALSE---------------------------------------------
+#  
+#  buildMonograph(headings=taxonomic.headings,collectorList.data = col.d, examinedSpecimens.data =
+#    exam.d, tableToDescription.data = desc.d, output = "Word", title="Monograph skeleton")
+#  
+#  
 
 ## ---- tidy=TRUE, results='asis'------------------------------------------
 
@@ -106,7 +132,7 @@ knitr::kable(head(data, 5), align="l")
 #  
 #  
 
-## ---- echo=FALSE, fig.width=3.45-----------------------------------------
+## ---- echo=FALSE,  message=FALSE, fig.width=3.45-------------------------
 
 par(mar=c(2,2,2,2)) ## this is just to adjust the margins of the figures
 
@@ -127,11 +153,10 @@ knitr::kable(head(data, 5), align="l")
 
 ## ---- tidy=TRUE, eval=FALSE----------------------------------------------
 #  
-#  mapBatch(data , type="simple", zoom=T, margin=0.2, points.col="black",  points.border="white", shape.col="gray90", points.cex=1.5, shape.border = "gray90", export="pdf")
+#  mapBatch(data , zoom=T, margin=2, points.col="black", points.border="white", shape.col="gray90", points.cex=1.5, shape.border = "gray90", export="pdf")
 #  
 
-## ---- echo=FALSE, message=FALSE, fig.width=3.45--------------------------
-library(rgeos)
+## ---- echo=FALSE, warning=FALSE, message=FALSE, fig.width=3.45-----------
 library(maptools)
 library(raster)
 data(monographaR_examples)
@@ -182,7 +207,7 @@ knitr::kable(head(data, 5), align="l")
 #  mapDiversity(data , resolution=1, plot=TRUE, plot.with.grid=TRUE, legend = T, export = F)
 #  
 
-## ---- fig.align='center', echo=328, fig.width=7, fig.height=3.8----------
+## ---- fig.align='center',  warning=FALSE, message=FALSE, echo=328, fig.width=7, fig.height=3.8----
 
 par(mar=c(0,0,0,0)) ## this is just to adjust the margins of the figures
 
@@ -208,7 +233,7 @@ knitr::kable(head(data, 5), align="l")
 #  map.table$table
 #  
 
-## ---- fig.align='center', echo=380, fig.width=7, fig.height=3.8----------
+## ---- fig.align='center',  message=FALSE, echo=380, fig.width=7, fig.height=3.8----
 
 par(mar=c(0,0,0,0)) ## this is just to adjust the margins of the figures
 

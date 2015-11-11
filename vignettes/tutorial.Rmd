@@ -29,14 +29,14 @@ Using monographaR is very straightforward. In general, you need to run one comma
 To run a command in R you have two options: select one or more lines in the script and click in "run"; or type or paste the command in the "Console" window and hit enter. When running anything in R, the first thing to do is to set your working directory (i.e., the directory where the input tables are located and the directory where the outputs will be exported). To set your working directory in Rstudio go to "Session" $\rightarrow$ "Set Working Directory" $\rightarrow$ "Choose Directory...". Alternatively, you can type the following command:
 
 ```{r, eval=FALSE}
-setwd("C:/My_wording_directory")
+setwd("C:/My_working_directory")
 ```
 
 
 Next, you need to load the required packages to perform your tasks. In our case, this is done with the command "library(monographaR)". Then you are ready to run the functions. 
 
 
-```{r, message=FALSE}
+```{r, message=FALSE, warning=FALSE}
 library(monographaR)
 ```
 
@@ -44,22 +44,26 @@ monographaR comes with examples of input tables. We will be using these tables t
 
 ```{r, eval=FALSE}
 data("monographaR_examples")
-head(monographaR_examples$colletorList)
+head(monographaR_examples$collectorList)
 head(monographaR_examples$examinedSpecimens)
 head(monographaR_examples$phenoHist)
 head(monographaR_examples$tableToDescription)
 head(monographaR_examples$map_data)
+head(monographaR_examples$taxonomic_headings)
 ```
 
 Alternatively, you can export the model tables for visualization in a spreadsheet program. You can type the following commands to export the models:
 
-```{r, eval=FALSE, tidy=TRUE}
+```{r, eval=FALSE, tidy=FALSE}
 data("monographaR_examples")
-write.csv(monographaR_examples$colletorList, file="collector_list_model.csv", row.names=F)
-write.csv(monographaR_examples$examinedSpecimens, file="examined_specimens_model.csv", row.names=F)
+write.csv(monographaR_examples$collectorList, file="collector_list_model.csv", row.names=F)
+write.csv(monographaR_examples$examinedSpecimens, file="examined_specimens_model.csv",
+  row.names=F)
 write.csv(monographaR_examples$phenoHist, file="phenology_model.csv", row.names=F)
-write.csv(monographaR_examples$tableToDescription, file="table_to_description_model.csv", row.names=F)
+write.csv(monographaR_examples$tableToDescription, file="table_to_description_model.csv", 
+  row.names=F)
 write.csv(monographaR_examples$map_data, file="map_functions_model.csv", row.names=F)
+write.csv(monographaR_examples$taxonomic_headings, file="headings_model.csv", row.names=F)
 ```
 
 *The tables will be saved in your working directory.*
@@ -89,7 +93,7 @@ knitr::kable(head(data, 5), align="l")
 
 Now, to **run** the function just type the command below. It will print in the terminal the output. To export a txt, place a name in the filename argument (i.e., filename = "myoutput.txt"). 
 
-```{r, tidy=TRUE, results='hide'}
+```{r, tidy=TRUE, message=FALSE, eval=FALSE}
 
 collectorList(data, filename = "", paragraphs = FALSE)
 
@@ -99,7 +103,7 @@ collectorList(data, filename = "", paragraphs = FALSE)
 
 __________________________________________________________
 
-```{r, echo=FALSE, results='asis'}
+```{r, echo=FALSE, message=FALSE, results='asis'}
 
 collectorList(data, filename = "", paragraphs = FALSE)
 
@@ -133,7 +137,7 @@ knitr::kable(head(data, 5), align="l")
 
 Now, to **run** the function just type the command below. It will print in the terminal the output. To export a txt, place a name in the filename argument (i.e., filename = "myoutput.txt"). 
 
-```{r, tidy=TRUE, results='hide'}
+```{r, tidy=TRUE, message=FALSE, eval=FALSE}
 
 examinedSpecimens(data, filename = "")
 
@@ -144,7 +148,7 @@ examinedSpecimens(data, filename = "")
 __________________________________________________________
 
 
-```{r, echo=FALSE, results='asis'}
+```{r, echo=FALSE, message=FALSE, results='asis'}
 
 examinedSpecimens(data, filename = "")
 
@@ -187,7 +191,7 @@ tableToDescription(data, filename = "")
 
 __________________________________________________________
 
-```{r, echo=FALSE, results='asis'}
+```{r, echo=FALSE, message=FALSE, results='asis'}
 
 data[,-c(1,8)] -> data
 tableToDescription(data, filename = "")
@@ -195,6 +199,49 @@ tableToDescription(data, filename = "")
 ```
 
 __________________________________________________________
+
+
+### buildMonograph
+
+This function wraps around the previous three functions (tableToDescription, examinedSpecimens and collectorList) generating a monograph draft in MS-Word or html format. The resulting monograph skeleton will include the taxonomic heading, the description, comments and examined specimens list for all species found in the input tables, and it will append the collector list in the end of the file. It requires four tables as input. Three of them are the same tables used for "tableToDescription", "collectorList" and "examinedSpecimens" functions. The additional input table should have three columns: species, taxonomic heading and comments. It uses functions of the rmarkdown package to export the output file. 
+
+*Loading the example data*
+  
+```{r, tidy=TRUE, results='asis'}
+
+data(monographaR_examples)
+monographaR_examples$taxonomic_headings -> taxonomic.headings
+monographaR_examples$collectorList -> col.d
+monographaR_examples$examinedSpecimens -> exam.d
+monographaR_examples$tableToDescription -> desc.d
+desc.d[,-1] -> desc.d
+
+```
+
+*This is how the headings table should be:*
+  
+```{r, echo=FALSE, results='asis'}
+data(monographaR_examples)
+monographaR_examples$taxonomic_headings -> headings
+knitr::kable(headings, align="l")
+```
+
+Now, to **run** the function just type the command below. It will export a MS-Word file (if output="Word") or a html file (if output = "html") to your working directory.
+
+```{r, tidy=FALSE, eval=FALSE}
+
+buildMonograph(headings=taxonomic.headings,collectorList.data = col.d, examinedSpecimens.data =
+  exam.d, tableToDescription.data = desc.d, output = "Word", title="Monograph skeleton")
+
+
+```
+
+
+__________________________________________________________
+
+*See the help of the function for options.* Type:
+  
+  - help("buildMonograph")
 
 
 ### phenoHist
@@ -231,7 +278,7 @@ phenoHist(data, shrink=1.1, axis.cex=0.8, title.cex=1, pdf=FALSE)
 
 __________________________________________________________
 
-```{r, echo=FALSE, fig.width=3.45}
+```{r, echo=FALSE,  message=FALSE, fig.width=3.45}
 
 par(mar=c(2,2,2,2)) ## this is just to adjust the margins of the figures
 
@@ -272,7 +319,7 @@ Now, to **run** the function just type the command below. It will export the map
 
 ```{r, tidy=TRUE, eval=FALSE}
 
-mapBatch(data , type="simple", zoom=T, margin=0.2, points.col="black",  points.border="white", shape.col="gray90", points.cex=1.5, shape.border = "gray90", export="pdf")
+mapBatch(data , zoom=T, margin=2, points.col="black", points.border="white", shape.col="gray90", points.cex=1.5, shape.border = "gray90", export="pdf")
 
 ```
 
@@ -280,8 +327,7 @@ mapBatch(data , type="simple", zoom=T, margin=0.2, points.col="black",  points.b
 
 __________________________________________________________
 
-```{r, echo=FALSE, message=FALSE, fig.width=3.45}
-library(rgeos)
+```{r, echo=FALSE, warning=FALSE, message=FALSE, fig.width=3.45}
 library(maptools)
 library(raster)
 data(monographaR_examples)
@@ -358,7 +404,7 @@ mapDiversity(data , resolution=1, plot=TRUE, plot.with.grid=TRUE, legend = T, ex
 
 __________________________________________________________
 
-```{r, fig.align='center', echo=328, fig.width=7, fig.height=3.8}
+```{r, fig.align='center',  warning=FALSE, message=FALSE, echo=328, fig.width=7, fig.height=3.8}
 
 par(mar=c(0,0,0,0)) ## this is just to adjust the margins of the figures
 
@@ -410,7 +456,7 @@ map.table$table
 
 __________________________________________________________
 
-```{r, fig.align='center', echo=380, fig.width=7, fig.height=3.8}
+```{r, fig.align='center',  message=FALSE, echo=380, fig.width=7, fig.height=3.8}
 
 par(mar=c(0,0,0,0)) ## this is just to adjust the margins of the figures
 
@@ -431,21 +477,19 @@ __________________________________________________________
 
 You can start your monographaR script using the examples in the next lines. Go to "File" $\rightarrow$ "New File...R script", and create a new script file. Copy the lines below and paste into the new script. For starters, just replace the working directory and the table names (...csv) to use it with your own data. But see the help files of the functions for further customizations. Have fun. 
 
->
+
 
 __________________________
 
 
+
 library(monographaR)
+&nbsp;
 
-
-
-\### change your working directory  
-  
-
+\### change your working directory ###  
 setwd("C:/My_working_directory")  
 
->  
+&nbsp;
 
 \############################### \
 \##### tableToDescription \
@@ -457,7 +501,7 @@ head(data)  ## this command just shows the first rows of the table, good to see 
 
 tableToDescription(data, filename="species_descriptions.txt")
   
->
+&nbsp;
 
 \############################### \
 \##### examinedSpecimens \
@@ -468,7 +512,7 @@ head(data)
 
 examinedSpecimens(data=data, filename="examined_material.txt")
 
->
+&nbsp;
 
 \############################### \
 \##### collectorList \
@@ -479,7 +523,23 @@ head(data)
 
 collectorList(data, filename="collector_list.txt", paragraphs=FALSE)
 
->
+&nbsp;
+
+\############################### \
+\##### buildMonograph \
+\############################### \  
+
+read.csv("headings.csv") -> taxonomic.headings   
+read.csv("tableToDescription_data.csv") -> desc.data   
+desc.data[,-1] -> desc.data   
+read.csv("examinedSpecimens_data.csv") -> exam.data   
+read.csv("collectorList_data.csv") -> col.data  
+
+buildMonograph(headings=taxonomic.headings, collectorList.data = col.data, 
+       examinedSpecimens.data = exam.data, tableToDescription.data = desc.data, 
+             output = "Word", title="Monograph skeleton")
+
+&nbsp;
 
 \############################### \
 \##### phenoHist \
@@ -490,7 +550,7 @@ head(data)
 
 phenoHist(data, mfrow=c(2,2), shrink=1.2, axis.cex=1.5, title.cex=1.5, pdf=T, filename="phenology.pdf") 
 
->
+&nbsp;
 
 \############################### \
 \##### mapBatch \
@@ -498,9 +558,9 @@ phenoHist(data, mfrow=c(2,2), shrink=1.2, axis.cex=1.5, title.cex=1.5, pdf=T, fi
 
 read.csv("mapBatch_data.csv") -> data  
 
-mapBatch(data, type="simple", zoom=T, margin=0.2, points.col="black", points.border="white", shape.col="gray90", points.cex=1.5, shape.border="gray90", export="tiff", tiff.width=200, tiff.height=200)
+mapBatch(data, zoom=T, margin=2, points.col="black", points.border="white", shape.col="gray90", points.cex=1.5, shape.border="gray90", export="tiff")
 
->
+&nbsp;
 
 \############################### \
 \##### mapDiversity \
@@ -518,7 +578,7 @@ pdf("mapDiversity.pdf")
 mapDiversity(data, resolution=1, plot=T, plot.with.grid=T)  
 dev.off()
 
->
+&nbsp;
 
 \############################### \
 \##### mapTable \
@@ -551,5 +611,4 @@ __________________________
 
 If you use **monographaR**, please cite:
 
-Reginato, M. (in prep.) monographaR: an R package to facilitate the production of
-  plant taxonomic monographs. Brittonia. 
+Reginato, M. (in press) monographaR: an R package to facilitate the production of plant taxonomic monographs. *Brittonia*. 

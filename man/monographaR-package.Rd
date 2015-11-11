@@ -6,9 +6,10 @@
 \description{
 monographaR contains functions intended to facilitate the production
 of plant taxonomic monographs. The package includes functions to convert 
-tables into taxonomic descriptions, lists of collectors and examined specimens. 
-Additionally, wrapper functions to batch the production of phenology histograms
-and distributional and diversity maps are also available. 
+tables into taxonomic descriptions, lists of collectors, examined specimens, 
+and can generate a monograph skeleton. Additionally, wrapper functions 
+to batch the production of phenology histograms and distributional and 
+diversity maps are also available. 
 }
 
 
@@ -16,8 +17,8 @@ and distributional and diversity maps are also available.
 \tabular{ll}{
 Package: \tab monographaR\cr
 Type: \tab Package\cr
-Version: \tab 1.0\cr
-Date: \tab 2015-08-01\cr
+Version: \tab 1.01\cr
+Date: \tab 2015-11-07\cr
 License: \tab GPL (>= 2)\cr
 }
 }
@@ -28,7 +29,7 @@ Maintainer: Marcelo Reginato <reginatobio@yahoo.com.br>
 
 }
 \references{
-Reginato, M. (submitted) monographaR: an R package to facilitate the production of plant taxonomic monographs. Brittonia.
+Reginato, M. (in press) monographaR: an R package to facilitate the production of plant taxonomic monographs. Brittonia.
 }
 
 \keyword{ taxonomy, monographs }
@@ -37,6 +38,7 @@ Reginato, M. (submitted) monographaR: an R package to facilitate the production 
 \code{\link[maptools:readShapePoly]{maptools}}
 \code{\link[raster:raster-package]{raster}}
 \code{\link[sp:sp]{sp}}
+\code{\link[rmarkdown:rmarkdown-package]{rmarkdown}}
 
 }
 

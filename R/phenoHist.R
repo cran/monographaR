@@ -6,9 +6,7 @@ function(data=data, mfrow=c(1,1), shrink=1.2, axis.cex=1.5, title.cex=1.5, pdf=F
   if (ncol(data) != 3) {
     stop("data must have 3 columns, see help(\"phenoHist\")")
   }
-  cat("Assuming the columns are ordered as:")
-  cat("\n species, month(number) and phenology", fill=T)
-  cat("\n", fill=T)
+  message("Assuming the columns are ordered as: species, month (number) and phenology")
   colnames(data) <- c("Species", "Month", "Phenology")
   data$Month -> month
   month[month == 1] <- 285

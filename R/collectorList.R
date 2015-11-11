@@ -8,16 +8,13 @@ function(data = data, filename="collector_list.txt", paragraphs=TRUE) {
   }
   if (ncol(data) == 5) {
     colnames(data) <- c("spp", "col", "cn", "h", "hn")
-    cat("Assuming the columns are ordered as:")
-    cat("\n species, collector name, collector number, herbarium acronym and herbarium number", fill=T)
-    cat("\n", fill=T)
+    message("Assuming the columns are ordered as: species, collector name, collector number, herbarium acronym and herbarium number")
+    cat(" ", fill=T)	
     herbarium = T
   }
   if (ncol(data) == 3) {
     colnames(data) <- c("spp", "col", "cn")
-    cat("Assuming the columns are ordered as:")
-    cat("\n species, collector name and collector number")
-    cat("\n", fill=T)
+    message("Assuming the columns are ordered as: species, collector name and collector number")
     herbarium = F
   }
   

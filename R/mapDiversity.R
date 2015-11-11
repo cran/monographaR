@@ -1,4 +1,5 @@
-mapDiversity <- function(data, resolution=1, plot=T, plot.with.grid=T, export=F, legend=T, filename="diversity_map") {
+mapDiversity <-
+function(data, resolution=1, plot=T, plot.with.grid=T, export=F, legend=T, filename="diversity_map") {
   if (class(data) != "data.frame") {
     stop("data must be a data.frame")
   }
@@ -6,9 +7,7 @@ mapDiversity <- function(data, resolution=1, plot=T, plot.with.grid=T, export=F,
     stop("data must have 3 columns, see help(\"mapDiversity\")")
   }
   wrld_simpl = NULL
-  cat("Assuming the columns are ordered as:")
-  cat("\n species, longitude and latitude", fill=T)
-  cat("\n", fill=T)
+  message("Assuming the columns are ordered as: species, longitude and latitude")
   data -> geo
   colnames(geo) <- c("Species", "x", "y")
   coordinates(geo) = ~x+y
