@@ -6,8 +6,8 @@ citEntry(
 	author="Marcelo Reginato",
 	journal="Brittonia",
 	year=2016,
-	volume="",
-	pages="",
-	textVersion="Reginato, M. (in press) monographaR: an R package to facilitate the production of plant taxonomic monographs. Brittonia"	   
+	volume="68(2)",
+	pages="212-216",
+	textVersion="Reginato, M. (2016) monographaR: an R package to facilitate the production of plant taxonomic monographs. Brittonia 68(2): 212-216"	   
 )
 

@@ -15,6 +15,7 @@ library(monographaR)
 #  head(monographaR_examples$tableToDescription)
 #  head(monographaR_examples$map_data)
 #  head(monographaR_examples$taxonomic_headings)
+#  head(monographaR_examples$mapPhenology)
 
 ## ---- eval=FALSE, tidy=FALSE---------------------------------------------
 #  data("monographaR_examples")
@@ -26,6 +27,7 @@ library(monographaR)
 #    row.names=F)
 #  write.csv(monographaR_examples$map_data, file="map_functions_model.csv", row.names=F)
 #  write.csv(monographaR_examples$taxonomic_headings, file="headings_model.csv", row.names=F)
+#  write.csv(monographaR_examples$mapPhenology file="mapPhenology_model.csv", row.names=F)
 
 ## ---- tidy=TRUE, results='asis'------------------------------------------
 
@@ -139,6 +141,42 @@ par(mar=c(2,2,2,2)) ## this is just to adjust the margins of the figures
 phenoHist(data, shrink=1.1, axis.cex=0.8, title.cex=1, pdf=FALSE)
 
 
+
+## ---- tidy=TRUE, results='asis'------------------------------------------
+
+data(monographaR_examples)
+monographaR_examples$mapPhenology -> data
+
+
+## ---- echo=FALSE, results='asis'-----------------------------------------
+data(monographaR_examples)
+monographaR_examples$mapPhenology -> data
+knitr::kable(head(data, 5), align="l")
+
+## ---- tidy=TRUE, eval=FALSE----------------------------------------------
+#  
+#  mapPhenology(data, binary=F, by_species=F, legend=F)
+#  
+#  
+
+## ---- echo=FALSE, message=FALSE, fig.width=7, fig.height=9---------------
+
+par(mar=c(2,2,2,2))
+
+mapPhenology(data, binary=F, by_species=F, legend=F)
+
+
+
+## ---- tidy=TRUE, eval=FALSE----------------------------------------------
+#  
+#  require(animation)
+#  
+#  saveGIF(
+#    {mapPhenology(data, binary=F, resolution=0.5, by_species=F, legend=F, mfrow=c(1,1))},
+#    movie.name="phenology.gif", interval=0.5, ani.width=600, ani.height=600
+#  )
+#  
+#  
 
 ## ---- tidy=TRUE, results='asis'------------------------------------------
 

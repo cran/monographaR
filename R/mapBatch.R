@@ -1,6 +1,5 @@
-mapBatch <-
-function (data, zoom = T, margin = 0.1, axes = T, shape=NULL, 
-          export = "pdf", raster = NULL, points.col = "black", 
+mapBatch <- function (data, zoom = T, margin = 0.1, axes = T, shape=NULL, 
+          export = "pdf", raster = NULL, RGB = NULL, points.col = "black", 
           points.border = "gray50", points.cex = 1, shape.col = "white", 
           shape.border = "black", raster.col = rev(gray.colors(65, start = 0, end = 1)),
           raster.legend=F, hillshade = F, width = 8, height = 8, image.resolution = 100, 
@@ -8,13 +7,19 @@ function (data, zoom = T, margin = 0.1, axes = T, shape=NULL,
           minimap.shape.col = "white", minimap.shape.border = "gray50", 
           minimap.pos = "topleft", minimap.add.points = T, minimap.points.col = "black",
           minimap.points.border = "gray50", minimap.points.cex = 1, minimap.extent = NULL,
-          maxpixels=100000, ...) 
+          minimap.rect.fill = NA, minimap.rect.border = NULL, maxpixels=100000, ...) 
 {
   if (class(data) != "data.frame") {
     stop("data must be a data.frame")
   }
   if (ncol(data) != 3) {
     stop("data must have 3 columns, see help(\"mapBatch\")")
+  }
+  if (is.numeric(data[,2]) == F) {
+    stop("longitude must be numeric, see help(\"mapBatch\")")
+  }
+  if (is.numeric(data[,3]) == F) {
+    stop("latitude must be numeric, see help(\"mapBatch\")")
   }
   wrld_simpl = NULL	
   if (is.null(shape)) {
@@ -57,7 +62,7 @@ function (data, zoom = T, margin = 0.1, axes = T, shape=NULL,
         paste(sp, ".tif", sep="") -> lab0
       }
       tiff(lab0, width = width, height = height, units = "in", 
-           res = image.resolution, compression = "lzw+p")
+           res = image.resolution, compression = "lzw")
     }
     if (export == "jpeg") {
       if (figure.number) {
@@ -86,6 +91,12 @@ function (data, zoom = T, margin = 0.1, axes = T, shape=NULL,
       plot(shape[[1]], xlim = xlim, ylim = ylim, axes = axes, 
            col = shape.col, border = shape.border, add = F, 
            asp = 1, ...)
+      if (is.null(RGB) == F) {
+        plotRGB(RGB, add=T, maxpixels=maxpixels)
+      }
+      plot(shape[[1]], xlim = xlim, ylim = ylim, axes = axes, 
+           col = shape.col, border = shape.border, add = T, 
+           asp = 1, ...)
       if (is.null(raster) == F) {
         if (hillshade == T) {
           plot(hill, col=hill.col, legend=F, axes=F, box=F, add=T, maxpixels=maxpixels)
@@ -103,6 +114,12 @@ function (data, zoom = T, margin = 0.1, axes = T, shape=NULL,
              add = T, asp = 1)
       }
     } else {
+      plot(shape, xlim = xlim, ylim = ylim, axes = axes, 
+           col = shape.col, border = shape.border, add = F, 
+           asp = 1)
+      if (is.null(RGB) == F) {
+        plotRGB(RGB, add=T, maxpixels=maxpixels)
+      }
       plot(shape, xlim = xlim, ylim = ylim, axes = axes, 
            col = shape.col, border = shape.border, add = F, 
            asp = 1)
@@ -142,7 +159,7 @@ function (data, zoom = T, margin = 0.1, axes = T, shape=NULL,
       if (minimap.add.points) {
         plot(xy, pch = 21, col = minimap.points.border, bg = minimap.points.col, cex = minimap.points.cex, add = T)
       }
-      rect(lims[1], lims[3], lims[2], lims[4], lwd=2, lty="dotted")
+      rect(lims[1], lims[3], lims[2], lims[4], lwd=2, lty="dotted", col = minimap.rect.fill, border = minimap.rect.border)
       dev.off()
       jpg0 = readPNG("temp.png", native=T)
       min(c(lims[2]-lims[1], lims[4]-lims[3])) -> min.plot
@@ -151,6 +168,18 @@ function (data, zoom = T, margin = 0.1, axes = T, shape=NULL,
         lims[1]++(min.plot*0.27) -> x2
         lims[4]-(min.plot*0.02) -> y2
         lims[4]-(min.plot*0.27) -> y1
+      }
+      if (minimap.pos == "topright") {
+        lims[2]-(min.plot*0.27) -> x1
+        lims[2]-(min.plot*0.02) -> x2
+        lims[4]-(min.plot*0.02) -> y2
+        lims[4]-(min.plot*0.27) -> y1
+      }
+      if (minimap.pos == "bottomleft") {
+        lims[1]++(min.plot*0.02) -> x1
+        lims[1]++(min.plot*0.27) -> x2
+        lims[3]++(min.plot*0.27) -> y2
+        lims[3]++(min.plot*0.02) -> y1
       }
       if (minimap.pos == "bottomright") {
         lims[2]-(min.plot*0.27) -> x1

@@ -50,6 +50,7 @@ head(monographaR_examples$phenoHist)
 head(monographaR_examples$tableToDescription)
 head(monographaR_examples$map_data)
 head(monographaR_examples$taxonomic_headings)
+head(monographaR_examples$mapPhenology)
 ```
 
 Alternatively, you can export the model tables for visualization in a spreadsheet program. You can type the following commands to export the models:
@@ -64,6 +65,7 @@ write.csv(monographaR_examples$tableToDescription, file="table_to_description_mo
   row.names=F)
 write.csv(monographaR_examples$map_data, file="map_functions_model.csv", row.names=F)
 write.csv(monographaR_examples$taxonomic_headings, file="headings_model.csv", row.names=F)
+write.csv(monographaR_examples$mapPhenology file="mapPhenology_model.csv", row.names=F)
 ```
 
 *The tables will be saved in your working directory.*
@@ -292,6 +294,69 @@ __________________________________________________________
 *See the help of the function for customization options.* Type:
 
 - help("phenoHist")
+
+### mapPhenology
+
+This wrapper function will generate heatmaps of phenology across a time range. The default is to produce 12 heatmaps plotted on a single plate. This can be changed with the argument time.range, where any numerical range can be provided (representing weeks for instance). The argument mfrow controls the plate layout. It requires a data.frame with four columns, ordered as: species, longitude, latitude and phenology. The phenology column should be numeric (i.e., the number of the month, week or day the specimen was collected with flower/fruit). It is possible to change the resolution of the resulting rasters. The function can produce presence/absence heatmaps (if binary = T) or abundance heatmaps (if binary = F). The abundance values are relative (divided by the maximum abundance observed across all rasters). The function returns a rasterStack that can be exported or used in customized plots. To export a pdf, set "pdf=TRUE". 
+
+*Loading the example data*
+
+```{r, tidy=TRUE, results='asis'}
+
+data(monographaR_examples)
+monographaR_examples$mapPhenology -> data
+
+```
+
+*This is how the table should be:*
+
+```{r, echo=FALSE, results='asis'}
+data(monographaR_examples)
+monographaR_examples$mapPhenology -> data
+knitr::kable(head(data, 5), align="l")
+```
+
+Now, to **run** the function just type the command below. In this case it will plot 12 phenology heatmaps. To export a pdf, set "pdf=TRUE". 
+
+```{r, tidy=TRUE, eval=FALSE}
+
+mapPhenology(data, binary=F, by_species=F, legend=F)
+
+
+```
+
+*This is the output:*
+
+__________________________________________________________
+
+```{r, echo=FALSE, message=FALSE, fig.width=7, fig.height=9}
+
+par(mar=c(2,2,2,2))
+
+mapPhenology(data, binary=F, by_species=F, legend=F)
+
+
+```
+
+__________________________________________________________
+
+It is possible to create an animation (GIF) of the phenology across time. There are several options to do that. One possibility is to use the animation package.
+
+```{r, tidy=TRUE, eval=FALSE}
+
+require(animation)
+
+saveGIF(
+  {mapPhenology(data, binary=F, resolution=0.5, by_species=F, legend=F, mfrow=c(1,1))},
+  movie.name="phenology.gif", interval=0.5, ani.width=600, ani.height=600
+)
+
+
+```
+
+*See the help of the function for customization options.* Type:
+
+- help("mapPhenology")
 
 
 ### mapBatch
@@ -611,4 +676,4 @@ __________________________
 
 If you use **monographaR**, please cite:
 
-Reginato, M. (in press) monographaR: an R package to facilitate the production of plant taxonomic monographs. *Brittonia*. 
+Reginato, M. (2016) monographaR: an R package to facilitate the production of plant taxonomic monographs. Brittonia 68(2): 212-216.

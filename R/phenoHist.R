@@ -1,5 +1,5 @@
 phenoHist <-
-function(data=data, mfrow=c(1,1), shrink=1.2, axis.cex=1.5, title.cex=1.5, pdf=F, filename="phenology.pdf", flower="Flower", fruit="Fruit", both="Both", flower.col=NULL, flower.border="black", fruit.col="darkgray", fruit.border="darkgray") {
+function(data=data, mfrow=c(1,1), shrink=1.2, axis.cex=1.5, title.cex=1.5, pdf=F, height=11, width=8.5, filename="phenology.pdf", flower="Flower", fruit="Fruit", both="Both", flower.col=NULL, flower.border="black", fruit.col="darkgray", fruit.border="darkgray", mar=c(2,2,2,2)) {
   if (class(data) != "data.frame") {
     stop("data must be a data.frame")
   }
@@ -31,9 +31,9 @@ function(data=data, mfrow=c(1,1), shrink=1.2, axis.cex=1.5, title.cex=1.5, pdf=F
   levels(as.factor(taxa)) -> spp
   par(mfrow=mfrow)
   if (pdf == T) {
-    pdf(filename)
+    pdf(filename, height=height, width=width)
   }
-  par(mfrow=mfrow)
+  par(mfrow=mfrow, mar=mar)
   for (i in 1:length(spp)) {
     taxa0 <- spp[i]
     data[(data[,1] == taxa0),c(2:3)] -> sp.data

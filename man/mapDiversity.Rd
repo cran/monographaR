@@ -9,7 +9,8 @@ species on grid cells.
 }
 \usage{
 mapDiversity(data, resolution = 1, plot = T, plot.with.grid = T, 
-export = F, legend = T, filename = "diversity_map")
+col=rev(terrain.colors(55)), alpha=0.8, export = F, legend = T, 
+filename = "diversity_map")
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -24,6 +25,12 @@ logical
 }
   \item{plot.with.grid}{
 logical, whether or not to add a grid to the plot
+}
+  \item{col}{
+character, a vector of colors
+}
+  \item{alpha}{
+numerical, controls color transparency (0-1)
 }
   \item{export}{
 logical
@@ -62,6 +69,25 @@ head(data)
 ## running the function
 
 mapDiversity(data , resolution=1, plot=TRUE, plot.with.grid=TRUE)
+
+## Without the grid borders
+
+mapDiversity(data , resolution=1, plot=TRUE, plot.with.grid=FALSE)
+
+## Changing colors
+
+mapDiversity(data , resolution=1, plot=TRUE, col=gray.colors(55))
+
+## Changing transparency
+
+mapDiversity(data , resolution=1, plot=TRUE, alpha=0.5)
+
+## The function returns a raster object
+
+mapDiversity(data , resolution=1, plot=TRUE, alpha=0.5) -> my.div.raster
+my.div.raster
+plot(my.div.raster)
+
 
 }
 

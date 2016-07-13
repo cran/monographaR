@@ -1,6 +1,6 @@
 Package: monographaR
-Version: 1.01
-Date: 2015-11-07
+Version: 1.2.0
+Date: 2016-10-07
 Title: Taxonomic Monographs Tools
 Author: Marcelo Reginato
 Maintainer: Marcelo Reginato <reginatobio@yahoo.com.br>
@@ -11,6 +11,6 @@ Description: Contains functions intended to facilitate the production of plant t
 VignetteBuilder: knitr
 License: GPL (>= 2)
 NeedsCompilation: no
-Packaged: 2015-11-10 15:54:45 UTC; Marcelo
+Packaged: 2016-07-12 15:54:31 UTC; Marcelo
 Repository: CRAN
-Date/Publication: 2015-11-11 00:03:13
+Date/Publication: 2016-07-13 10:19:35

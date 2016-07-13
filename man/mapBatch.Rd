@@ -8,15 +8,17 @@ This wrapper function will export maps for all species in data.
 }
 \usage{
 mapBatch(data, zoom = T, margin = 0.1, axes = T, shape = NULL,
-export = "pdf", raster = NULL, points.col = "black", points.border = 
-"gray50", points.cex = 1, shape.col = "white", shape.border = "black",
-raster.col = rev(gray.colors(65, start = 0, end = 1)), raster.legend = F, 
-hillshade = F, width = 8, height = 8, image.resolution = 100, 
-figure.number = T, title = T, box = T, add.minimap = F, minimap.shape = 
-NULL, minimap.shape.col = "white", minimap.shape.border = "gray50", 
-minimap.pos = "topleft", minimap.add.points = T, minimap.points.col = 
-"black", minimap.points.border = "gray50", minimap.points.cex = 1, 
-minimap.extent = NULL, maxpixels = 1e+05, ...)
+export = "pdf", raster = NULL, RGB = NULL, points.col = "black", 
+points.border = "gray50", points.cex = 1, shape.col = "white", 
+shape.border = "black", raster.col = rev(gray.colors(65, start = 0, end = 1)), 
+raster.legend = F, hillshade = F, width = 8, height = 8, 
+image.resolution = 100, figure.number = T, title = T, box = T, 
+add.minimap = F, minimap.shape = NULL, minimap.shape.col = "white", 
+minimap.shape.border = "gray50", minimap.pos = "topleft", 
+minimap.add.points = T, minimap.points.col = "black", 
+minimap.points.border = "gray50", minimap.points.cex = 1, 
+minimap.extent = NULL, minimap.rect.fill = NA, minimap.rect.border = NULL,
+maxpixels = 1e+05, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -40,6 +42,9 @@ a single or a list of spatial shape objects
 }
   \item{raster}{
 a raster object
+}
+  \item{RGB}{
+a raster stack object (with three layers)
 }
   \item{points.col}{
 character
@@ -90,10 +95,10 @@ logical
 a spatial shape object
 }
   \item{minimap.shape.col}{
-character
+character (color)
 }
   \item{minimap.shape.border}{
-character
+character (color)
 }
   \item{minimap.pos}{
 "topleft", "topright", "bottomleft" or "bottomright"
@@ -102,16 +107,22 @@ character
 logical
 }
   \item{minimap.points.col}{
-character
+character (color)
 }
   \item{minimap.points.border}{
-character
+character (color)
 }
   \item{minimap.points.cex}{
 numeric
 }
   \item{minimap.extent}{
 numeric (x1, x2, y1, y2)
+}
+  \item{minimap.rect.fill}{
+character (color)
+}
+  \item{minimap.rect.border}{
+character (color)
 }
   \item{maxpixels}{
 numeric

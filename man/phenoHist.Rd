@@ -9,10 +9,10 @@ functions of the package circular.
 }
 \usage{
 phenoHist(data = data, mfrow = c(1, 1), shrink = 1.2, axis.cex = 
-1.5, title.cex = 1.5, pdf = F, filename = "phenology.pdf", flower 
-= "Flower", fruit = "Fruit", both = "Both", flower.col = NULL, 
-flower.border = "black", fruit.col = "darkgray", fruit.border = 
-"darkgray")
+1.5, title.cex = 1.5, pdf = F, height=11, width=8.5, 
+filename = "phenology.pdf", flower = "Flower", fruit = "Fruit", 
+both = "Both", flower.col = NULL, flower.border = "black", 
+fruit.col = "darkgray", fruit.border = "darkgray", mar=c(2,2,2,2))
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -33,6 +33,12 @@ numeric
 }
   \item{pdf}{
 logical
+}
+  \item{height}{
+numeric
+}
+  \item{width}{
+numeric
 }
   \item{filename}{
 character
@@ -57,6 +63,9 @@ character (color of fruit bars)
 }
   \item{fruit.border}{
 character (color of fruit border bars)
+}
+  \item{mar}{
+numeric (plot margins, vector of 4 values)
 }
 }
 \details{

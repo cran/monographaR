@@ -17,8 +17,8 @@ diversity maps are also available.
 \tabular{ll}{
 Package: \tab monographaR\cr
 Type: \tab Package\cr
-Version: \tab 1.01\cr
-Date: \tab 2015-11-07\cr
+Version: \tab 1.2.0\cr
+Date: \tab 2016-07-10\cr
 License: \tab GPL (>= 2)\cr
 }
 }
@@ -29,7 +29,8 @@ Maintainer: Marcelo Reginato <reginatobio@yahoo.com.br>
 
 }
 \references{
-Reginato, M. (in press) monographaR: an R package to facilitate the production of plant taxonomic monographs. Brittonia.
+Reginato, M. (2016) monographaR: an R package to facilitate the production 
+of plant taxonomic monographs. Brittonia 68(2): 212-216.
 }
 
 \keyword{ taxonomy, monographs }

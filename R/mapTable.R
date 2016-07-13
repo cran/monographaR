@@ -6,6 +6,12 @@ if (class(data) != "data.frame") {
 if (ncol(data) != 3) {
   stop("data must have 3 columns, see help(\"mapTable\")")
 }
+if (is.numeric(data[,2]) == F) {
+  stop("longitude must be numeric, see help(\"mapTable\")")
+}
+if (is.numeric(data[,3]) == F) {
+  stop("latitude must be numeric, see help(\"mapTable\")")
+}
 message("Assuming the columns are ordered as: species, longitude and latitude")
 data -> geo.data
 colnames(geo.data) <- c("Species", "x", "y")
