@@ -1,5 +1,5 @@
 mapTable <-
-function(data, type="grid", resolution=1, write.output=FALSE, layer=NULL) {
+function(data, type="grid", resolution=1, pres.abs=TRUE, write.output=FALSE, layer=NULL) {
 if (class(data) != "data.frame") {
   stop("data must be a data.frame")
 }
@@ -39,8 +39,13 @@ wrld_simpl = NULL
     cells[,-2] -> cells
     colnames(cells)[2] <- "cells"
     as.matrix(table(cells)) -> cells
-    cells[cells >= 1] <- "x"
-    cells[cells == "0"] <- ""
+    if (pres.abs) {
+      cells[cells >= 1] <- 1
+    } else {
+      cells[cells >= 1] <- "x"
+      cells[cells == "0"] <- ""
+    }
+    as.data.frame.matrix(cells) -> cells
     list(grid=grid, table=cells) -> result
     if (write.output == T) {
       write.csv(cells, "mapTable.csv")
@@ -51,21 +56,26 @@ wrld_simpl = NULL
   }
   if (type == "country") {
     data(wrld_simpl, envir = environment())
-    proj4string(wrld_simpl) -> proj4string(geo.data)
+    suppressWarnings(proj4string(wrld_simpl)) -> proj4string(geo.data)
     data.frame(sp=data[,1], over(geo.data, wrld_simpl)$NAME) -> countries
     unique(countries) -> countries
     as.character(countries[,2]) -> countries[,2]
     colnames(countries)[2] <- "Country"
     as.matrix(table(countries)) -> countries
-    countries[countries >= 1] <- "x"
-    countries[countries == "0"] <- ""
+    if (pres.abs) {
+      countries[countries >= 1] <- 1
+    } else {
+      countries[countries >= 1] <- "x"
+      countries[countries == "0"] <- ""
+    }
+    as.data.frame.matrix(countries) -> countries
     countries -> result
   }
   if (type == "user") {
     if (is.null(layer)) {
       stop("When type = \"user\" a layer (spatial polygons) should be provided")
     }
-    proj4string(layer) -> proj4string(geo.data)
+    suppressWarnings(proj4string(layer)) -> proj4string(geo.data)
     over(geo.data, layer) -> over0
     data.frame(sp=data[,1], over(geo.data, layer)) ->t0
     na.omit(t0) -> t0

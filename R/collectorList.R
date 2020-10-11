@@ -8,17 +8,19 @@ function(data = data, filename="collector_list.txt", paragraphs=TRUE) {
   }
   if (ncol(data) == 5) {
     colnames(data) <- c("spp", "col", "cn", "h", "hn")
+    dupli <- which(duplicated(data.frame(data[,2], data[,3], data[,4], data[,5])))
+    if (length(dupli) > 0) {data[-dupli,] -> data}	
     message("Assuming the columns are ordered as: species, collector name, collector number, herbarium acronym and herbarium number")
     cat(" ", fill=T)	
     herbarium = T
   }
   if (ncol(data) == 3) {
     colnames(data) <- c("spp", "col", "cn")
+    dupli <- which(duplicated(data.frame(data[,2], data[,3])))
+    if (length(dupli) > 0) {data[-dupli,] -> data}
     message("Assuming the columns are ordered as: species, collector name and collector number")
     herbarium = F
   }
-  
-  data[-which(duplicated(data.frame(data[,2], data[,3]))),] -> data
   levels(as.factor(as.character(data$spp))) -> spp 
   as.character(data$spp) -> codes
   for (i in 1:length(spp)) {
@@ -26,8 +28,13 @@ function(data = data, filename="collector_list.txt", paragraphs=TRUE) {
   }
   data$codes <- codes
   which(is.na(data$cn)) -> miss.rows
-  data[miss.rows,] -> miss.data
-  data[-miss.rows,] -> dataless
+  if (length(miss.rows) > 0) {
+    data[miss.rows,] -> miss.data
+    data[-miss.rows,] -> dataless
+  } else {
+    data -> dataless
+    miss.data <- matrix(ncol=0, nrow=0)
+  }
   levels(as.factor(as.character(dataless$col))) -> cols
   cat("List of species", file=filename, fill=T)
   cat("", file=filename, append=T, fill=T)

@@ -1,4 +1,5 @@
-mapBatch <- function (data, zoom = T, margin = 0.1, axes = T, shape=NULL, 
+mapBatch <-
+function (data, zoom = T, margin = 0.1, axes = T, shape=NULL, 
           export = "pdf", raster = NULL, RGB = NULL, points.col = "black", 
           points.border = "gray50", points.cex = 1, shape.col = "white", 
           shape.border = "black", raster.col = rev(gray.colors(65, start = 0, end = 1)),

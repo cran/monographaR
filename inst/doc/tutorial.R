@@ -1,13 +1,13 @@
-## ---- eval=FALSE---------------------------------------------------------
+## ---- eval=FALSE--------------------------------------------------------------
 #  install.packages("monographaR", dependencies=T)
 
-## ---- eval=FALSE---------------------------------------------------------
+## ---- eval=FALSE--------------------------------------------------------------
 #  setwd("C:/My_working_directory")
 
-## ---- message=FALSE, warning=FALSE---------------------------------------
+## ---- message=FALSE, warning=FALSE--------------------------------------------
 library(monographaR)
 
-## ---- eval=FALSE---------------------------------------------------------
+## ---- eval=FALSE--------------------------------------------------------------
 #  data("monographaR_examples")
 #  head(monographaR_examples$collectorList)
 #  head(monographaR_examples$examinedSpecimens)
@@ -17,7 +17,7 @@ library(monographaR)
 #  head(monographaR_examples$taxonomic_headings)
 #  head(monographaR_examples$mapPhenology)
 
-## ---- eval=FALSE, tidy=FALSE---------------------------------------------
+## ---- eval=FALSE, tidy=FALSE--------------------------------------------------
 #  data("monographaR_examples")
 #  write.csv(monographaR_examples$collectorList, file="collector_list_model.csv", row.names=F)
 #  write.csv(monographaR_examples$examinedSpecimens, file="examined_specimens_model.csv",
@@ -29,73 +29,73 @@ library(monographaR)
 #  write.csv(monographaR_examples$taxonomic_headings, file="headings_model.csv", row.names=F)
 #  write.csv(monographaR_examples$mapPhenology file="mapPhenology_model.csv", row.names=F)
 
-## ---- tidy=TRUE, results='asis'------------------------------------------
+## ---- tidy=TRUE, results='asis'-----------------------------------------------
 
 data(monographaR_examples)
 monographaR_examples$collectorList -> data
 
 
-## ---- echo=FALSE, results='asis'-----------------------------------------
+## ---- echo=FALSE, results='asis'----------------------------------------------
 data(monographaR_examples)
 monographaR_examples$collectorList -> data
 knitr::kable(head(data, 5), align="l")
 
-## ---- tidy=TRUE, message=FALSE, eval=FALSE-------------------------------
+## ---- tidy=TRUE, message=FALSE, eval=FALSE------------------------------------
 #  
 #  collectorList(data, filename = "", paragraphs = FALSE)
 #  
 
-## ---- echo=FALSE, message=FALSE, results='asis'--------------------------
+## ---- echo=FALSE, message=FALSE, results='asis'-------------------------------
 
 collectorList(data, filename = "", paragraphs = FALSE)
 
 
-## ---- tidy=TRUE, results='asis'------------------------------------------
+## ---- tidy=TRUE, results='asis'-----------------------------------------------
 
 data(monographaR_examples)
 monographaR_examples$examinedSpecimens -> data
 
 
-## ---- echo=FALSE, results='asis'-----------------------------------------
+## ---- echo=FALSE, results='asis'----------------------------------------------
 data(monographaR_examples)
 monographaR_examples$examinedSpecimens -> data
 colnames(data)[2:3] <- c("Collector", "Number")
 knitr::kable(head(data, 5), align="l")
 
-## ---- tidy=TRUE, message=FALSE, eval=FALSE-------------------------------
+## ---- tidy=TRUE, message=FALSE, eval=FALSE------------------------------------
 #  
 #  examinedSpecimens(data, filename = "")
 #  
 
-## ---- echo=FALSE, message=FALSE, results='asis'--------------------------
+## ---- echo=FALSE, message=FALSE, results='asis'-------------------------------
 
 examinedSpecimens(data, filename = "")
 
 
-## ---- tidy=TRUE, results='asis'------------------------------------------
+## ---- tidy=TRUE, results='asis'-----------------------------------------------
 
 data(monographaR_examples)
 monographaR_examples$tableToDescription -> data
 
 
-## ---- echo=FALSE, results='asis'-----------------------------------------
+## ---- echo=FALSE, results='asis'----------------------------------------------
 data(monographaR_examples)
 monographaR_examples$tableToDescription -> data
 knitr::kable(head(data[,1:5], 5), align="l")
 
-## ---- eval=FALSE---------------------------------------------------------
+## ---- eval=FALSE--------------------------------------------------------------
 #  
 #  data[,-1] -> data  ## removing first column
 #  tableToDescription(data, filename = "")
 #  
 
-## ---- echo=FALSE, message=FALSE, results='asis'--------------------------
+## ---- echo=FALSE, message=FALSE, results='asis'-------------------------------
 
 data[,-c(1,8)] -> data
 tableToDescription(data, filename = "")
 
 
-## ---- tidy=TRUE, results='asis'------------------------------------------
+## ---- tidy=TRUE, results='asis'-----------------------------------------------
 
 data(monographaR_examples)
 monographaR_examples$taxonomic_headings -> taxonomic.headings
@@ -105,36 +105,36 @@ monographaR_examples$tableToDescription -> desc.d
 desc.d[,-1] -> desc.d
 
 
-## ---- echo=FALSE, results='asis'-----------------------------------------
+## ---- echo=FALSE, results='asis'----------------------------------------------
 data(monographaR_examples)
 monographaR_examples$taxonomic_headings -> headings
 knitr::kable(headings, align="l")
 
-## ---- tidy=FALSE, eval=FALSE---------------------------------------------
+## ---- tidy=FALSE, eval=FALSE--------------------------------------------------
 #  
 #  buildMonograph(headings=taxonomic.headings,collectorList.data = col.d, examinedSpecimens.data =
 #    exam.d, tableToDescription.data = desc.d, output = "Word", title="Monograph skeleton")
 #  
 #  
 
-## ---- tidy=TRUE, results='asis'------------------------------------------
+## ---- tidy=TRUE, results='asis'-----------------------------------------------
 
 data(monographaR_examples)
 monographaR_examples$phenoHist -> data
 
 
-## ---- echo=FALSE, results='asis'-----------------------------------------
+## ---- echo=FALSE, results='asis'----------------------------------------------
 data(monographaR_examples)
 monographaR_examples$phenoHist -> data
 knitr::kable(head(data, 5), align="l")
 
-## ---- tidy=TRUE, eval=FALSE----------------------------------------------
+## ---- tidy=TRUE, eval=FALSE---------------------------------------------------
 #  
 #  phenoHist(data, shrink=1.1, axis.cex=0.8, title.cex=1, pdf=FALSE)
 #  
 #  
 
-## ---- echo=FALSE,  message=FALSE, fig.width=3.45-------------------------
+## ---- echo=FALSE,  message=FALSE, fig.width=3.45------------------------------
 
 par(mar=c(2,2,2,2)) ## this is just to adjust the margins of the figures
 
@@ -142,24 +142,24 @@ phenoHist(data, shrink=1.1, axis.cex=0.8, title.cex=1, pdf=FALSE)
 
 
 
-## ---- tidy=TRUE, results='asis'------------------------------------------
+## ---- tidy=TRUE, results='asis'-----------------------------------------------
 
 data(monographaR_examples)
 monographaR_examples$mapPhenology -> data
 
 
-## ---- echo=FALSE, results='asis'-----------------------------------------
+## ---- echo=FALSE, results='asis'----------------------------------------------
 data(monographaR_examples)
 monographaR_examples$mapPhenology -> data
 knitr::kable(head(data, 5), align="l")
 
-## ---- tidy=TRUE, eval=FALSE----------------------------------------------
+## ---- tidy=TRUE, eval=FALSE---------------------------------------------------
 #  
 #  mapPhenology(data, binary=F, by_species=F, legend=F)
 #  
 #  
 
-## ---- echo=FALSE, message=FALSE, fig.width=7, fig.height=9---------------
+## ---- echo=FALSE, message=FALSE, fig.width=7, fig.height=9--------------------
 
 par(mar=c(2,2,2,2))
 
@@ -167,7 +167,7 @@ mapPhenology(data, binary=F, by_species=F, legend=F)
 
 
 
-## ---- tidy=TRUE, eval=FALSE----------------------------------------------
+## ---- tidy=TRUE, eval=FALSE---------------------------------------------------
 #  
 #  require(animation)
 #  
@@ -178,23 +178,23 @@ mapPhenology(data, binary=F, by_species=F, legend=F)
 #  
 #  
 
-## ---- tidy=TRUE, results='asis'------------------------------------------
+## ---- tidy=TRUE, results='asis'-----------------------------------------------
 
 data(monographaR_examples)
 monographaR_examples$map_data -> data
 
 
-## ---- echo=FALSE, results='asis'-----------------------------------------
+## ---- echo=FALSE, results='asis'----------------------------------------------
 data(monographaR_examples)
 monographaR_examples$map_data -> data
 knitr::kable(head(data, 5), align="l")
 
-## ---- tidy=TRUE, eval=FALSE----------------------------------------------
+## ---- tidy=TRUE, eval=FALSE---------------------------------------------------
 #  
 #  mapBatch(data , zoom=T, margin=2, points.col="black", points.border="white", shape.col="gray90", points.cex=1.5, shape.border = "gray90", export="pdf")
 #  
 
-## ---- echo=FALSE, warning=FALSE, message=FALSE, fig.width=3.45-----------
+## ---- echo=FALSE, warning=FALSE, message=FALSE, fig.width=3.45----------------
 library(maptools)
 library(raster)
 data(monographaR_examples)
@@ -229,18 +229,18 @@ for (i in 1:4) {
 }
 
 
-## ---- tidy=TRUE, results='asis'------------------------------------------
+## ---- tidy=TRUE, results='asis'-----------------------------------------------
 
 data(monographaR_examples)
 monographaR_examples$map_data -> data
 
 
-## ---- echo=FALSE, results='asis'-----------------------------------------
+## ---- echo=FALSE, results='asis'----------------------------------------------
 data(monographaR_examples)
 monographaR_examples$map_data -> data
 knitr::kable(head(data, 5), align="l")
 
-## ---- tidy=TRUE, eval=FALSE----------------------------------------------
+## ---- tidy=TRUE, eval=FALSE---------------------------------------------------
 #  
 #  mapDiversity(data , resolution=1, plot=TRUE, plot.with.grid=TRUE, legend = T, export = F)
 #  
@@ -253,18 +253,18 @@ mapDiversity(data , resolution=1, plot=TRUE, plot.with.grid=TRUE, legend = T)
 
 
 
-## ---- tidy=TRUE, results='asis'------------------------------------------
+## ---- tidy=TRUE, results='asis'-----------------------------------------------
 
 data(monographaR_examples)
 monographaR_examples$map_data -> data
 
 
-## ---- echo=FALSE, results='asis'-----------------------------------------
+## ---- echo=FALSE, results='asis'----------------------------------------------
 data(monographaR_examples)
 monographaR_examples$map_data -> data
 knitr::kable(head(data, 5), align="l")
 
-## ---- tidy=TRUE, eval=FALSE----------------------------------------------
+## ---- tidy=TRUE, eval=FALSE---------------------------------------------------
 #  
 #  map.table <- mapTable(data, type="grid", resolution=3, write.output=FALSE)
 #  

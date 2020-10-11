@@ -8,7 +8,8 @@ This function will generate a MS-Word or html file with a monograph skeleton (dr
 }
 \usage{
 buildMonograph(headings, tableToDescription.data, examinedSpecimens.data = NULL, 
-collectorList.data = NULL, output = "Word", title = "Taxonomic treatment")
+collectorList.data = NULL, output = "Word", title = "Taxonomic treatment", 
+open = TRUE)
 }
 
 \arguments{
@@ -29,6 +30,9 @@ data.frame (optional)
 }
   \item{title}{
 character
+}
+  \item{open}{
+logical
 }
 }
 \details{

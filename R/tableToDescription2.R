@@ -1,5 +1,6 @@
 tableToDescription2 <-
 function(data) {
+  data.frame(as.matrix(data), stringsAsFactors = F) -> data
   data[,1:3] -> model
   as.data.frame(data[,4]) -> spp.data
   spaces <-function(x) return(gsub("(?<=[\\s])\\s*|^\\s+$", "", x, perl=TRUE))

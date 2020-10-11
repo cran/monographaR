@@ -8,8 +8,8 @@ This function will generate a presence/absence matrix based on a grid (if type="
 on countries (if type="countries").
 }
 \usage{
-mapTable(data, type = "grid", resolution = 1, write.output = 
-FALSE, layer = NULL)
+mapTable(data, type = "grid", resolution = 1, pres.abs = TRUE, 
+write.output = FALSE, layer = NULL)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -21,6 +21,9 @@ data.frame
 }
   \item{resolution}{
 numeric (degrees)
+}
+  \item{pres.abs}{
+logical
 }
   \item{write.output}{
 logical
@@ -34,7 +37,8 @@ It requires a data.frame with three columns, ordered as:
 species, longitude and latitude. The resolution of the grid can be changed by the argument
 "resolution" (in degrees). If type = "user", a layer to intersect the points and create
 the matrix should be supplied (a Spatial DataFrame object). It uses functions of the
- package raster and maptools.
+ package raster and maptools. If pres.abs = F the returned matrix will have "x" instead
+of 0 and 1.
 
 }
 \value{
@@ -71,10 +75,6 @@ plot(wrld_simpl, add=TRUE)
 plot(grid, add=TRUE)
 raster::text(grid, grid@data$layer, cex=1)
 
-## running the function with countries
-
-map.table.country <- mapTable(data, type="country")
-map.table.country
 
 }
 

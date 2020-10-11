@@ -19,8 +19,13 @@ function(data = data, filename="") {
   }
   data$codes <- codes
   which(is.na(data$cn)) -> miss.rows
-  data[miss.rows,] -> miss.data
-  data[-miss.rows,] -> dataless
+  if (length(miss.rows) > 0) {
+    data[miss.rows,] -> miss.data
+    data[-miss.rows,] -> dataless
+  } else {
+    data -> dataless
+    miss.data <- matrix(ncol=0, nrow=0)
+  }
   levels(as.factor(as.character(dataless$col))) -> cols
     for (i in 1:length(spp)) {
       cat(i, ". ", "*", sub("_", " ",spp[i]), "* ", "\n", sep="", file=filename, append=T)

@@ -1,4 +1,4 @@
-mapPhenology <- 
+mapPhenology <-
 function(data, resolution=1, time.range=c(1:12), label="Month", binary=T, by_species=F, plot=T, col=rev(heat.colors(12)), alpha=0.8, mfrow=c(4,3), legend=T, pdf=F, height=11, width=8.5, filename="mapPhenology.pdf") {
   if (class(data) != "data.frame") {
     stop("data must be a data.frame")

@@ -1,5 +1,4 @@
-buildMonograph <-
-function(headings, tableToDescription.data, examinedSpecimens.data=NULL, collectorList.data=NULL, output="Word", title="Taxonomic treatment") {
+buildMonograph <- function(headings, tableToDescription.data, examinedSpecimens.data=NULL, collectorList.data=NULL, output="Word", title="Taxonomic treatment", open=TRUE) {
    
   if (class(headings) != "data.frame") {
     stop("headings must be a data.frame")
@@ -65,7 +64,7 @@ function(headings, tableToDescription.data, examinedSpecimens.data=NULL, collect
         "head1 <- strsplit(head0, \" \")[[1]][-c(1:2)]\n", 
         "paste(head1, collapse=\" \") -> head1\n",
         "head0 <- strsplit(head0, \" \")[[1]][c(1:2)]\n", 
-        "head0 <- paste(head0, collapse=\" \")",
+        "head0 <- paste(head0, collapse=\" \")\n",
         "cat(\"*\", head0, \"* \", head1, \"\\n\", sep=\"\", file=\"\")\n", 
         "cat(\" \", file=\"\", fill=T)\n",
         "kc <- match(sp0,colnames(tableToDescription.data))\n",
@@ -109,11 +108,15 @@ function(headings, tableToDescription.data, examinedSpecimens.data=NULL, collect
   }
   if (output == "Word") {
     suppressWarnings(rmarkdown::render("temp.Rmd", rmarkdown::word_document(), output_file = "Monograph_skeleton.docx", quiet=T))
-    try(system("open Monograph_skeleton.docx"), silent=T)
+    if (open) {
+      try(system("open Monograph_skeleton.docx"), silent=T)
+    }
   }
   if (output == "html") {
     suppressWarnings(rmarkdown::render("temp.Rmd", rmarkdown::html_vignette(), output_file = "Monograph_skeleton.html", quiet=T))
-    try(system("open Monograph_skeleton.html"), silent=T)
+    if (open) {
+      try(system("open Monograph_skeleton.html"), silent=T)
+    }
   }
   unlink("temp.Rmd")
   cat("The monograph skeleton was saved in:")
