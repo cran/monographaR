@@ -7,9 +7,10 @@
 monographaR contains functions intended to facilitate the production
 of plant taxonomic monographs. The package includes functions to convert 
 tables into taxonomic descriptions, lists of collectors, examined specimens, 
-dichotomous keys, and can generate a monograph skeleton. Additionally, 
-wrapper functions to batch the production of phenology histograms and 
-distributional and diversity maps are also available. 
+identificatio keys (dichotomous and interactive), and can generate a 
+monograph skeleton. Additionally, wrapper functions to batch the 
+production of phenology histograms and distributional and diversity 
+maps are also available. 
 }
 
 
@@ -17,8 +18,8 @@ distributional and diversity maps are also available.
 \tabular{ll}{
 Package: \tab monographaR\cr
 Type: \tab Package\cr
-Version: \tab 1.3.0\cr
-Date: \tab 2024-01-10\cr
+Version: \tab 1.3.1\cr
+Date: \tab 2024-02-01\cr
 License: \tab GPL (>= 2)\cr
 }
 }

@@ -2,8 +2,8 @@ interactiveKeyLabels <-
 function(taxon="species", language="english") {
   ### english
   if (language == "english") {
-    ui.bar.title = "Interactive Key"
-    ui.title.panel1 = "Identification"
+    ui.bar.title = "My taxon"
+    ui.title.panel1 = "Interactive Key"
     ui.title.panel2 = "Comparison"
     ui.title.panel3 = "About"
     ui.title.characters = "Characters"
@@ -14,6 +14,8 @@ function(taxon="species", language="english") {
     ui.comp.radio.choices.3 = "All"
     ui.comp.main.title = "Comparative table"
     server.characters.selected = "selected characters"
+    ui.title.panel4 =  "Dichotomous key" 
+    ui.title.dicho = "Dichotomous key"	
     if (taxon == "species") {
       server.taxa.remaining = "remaining species"
       ui.instructions.characters = "Select the characters present in your specimen. As characters are selected, species are excluded from the list (right panel). In the option \"Comparison\" it is possible to visualize a comparative table of selected species."
@@ -41,8 +43,8 @@ function(taxon="species", language="english") {
   }
   ### portuguese
   if (language == "portuguese") {
-    ui.bar.title = "Chave interativa"
-    ui.title.panel1 = "Identificacao"
+    ui.bar.title = "Meu taxon"
+    ui.title.panel1 = "Chave interativa"
     ui.title.panel2 = "Comparacao"
     ui.title.panel3 = "Sobre"
     ui.title.characters = "Caracteres"
@@ -55,6 +57,8 @@ function(taxon="species", language="english") {
     ui.comp.radio.choices.3 = "Todos"
     ui.comp.main.title = "Tabela comparativa"
     server.characters.selected = "caractere(s) selecionado(s)"
+    ui.title.panel4 =  "Chave dicotomica" 
+    ui.title.dicho = "Chave dicotomica"	
     if (taxon == "species") {
       server.taxa.remaining = "especie(s) restante(s)"
       ui.instructions.characters = "Selecione os caracteres presentes no seu especime. Conforme os caracteres sao adicionados, especies que nao possuem tais caracteristicas sao eliminadas da lista. Na aba \"Comparacao\" e possivel visualizar uma tabela comparativa entre especies selecionadas."
@@ -101,7 +105,7 @@ function(taxon="species", language="english") {
              ui.title.panel3, ui.title.characters, ui.instructions.characters,
              ui.title.taxa, ui.clean.button.label, ui.comp.radio, ui.comp.radio.choices.1, ui.comp.radio.choices.2,
              ui.comp.radio.choices.3, ui.comp.main.title, ui.comp.title,
-             ui.comp.help, ui.comp.dropdown, stringsAsFactors = F) -> lab.dat
+             ui.comp.help, ui.comp.dropdown, ui.title.panel4, ui.title.dicho, stringsAsFactors = F) -> lab.dat
   t(lab.dat) -> lab.dat
   colnames(lab.dat) <- "text"
   Encoding(lab.dat) <- rep("latin1", nrow(lab.dat))
